@@ -1,6 +1,8 @@
 #ifndef TUPLE_H_
 #define TUPLE_H_
 
+#include <cmath>
+
 class Tuple {
   public:
     Tuple(float x, float y, float z, float w) : x_(x), y_(y), z_(z), w_(w) { }
@@ -20,9 +22,42 @@ class Tuple {
         return tuple;
     }
 
+    // Hadamard product
+    Tuple operator*(const Tuple& other) {
+        Tuple tuple(other.x_*x_, other.y_*y_, other.z_*z_, other.w_*w_);
+        return tuple;
+    }
+
     Tuple operator*(float multiple) {
         Tuple tuple(multiple*x_, multiple*y_, multiple*z_, multiple*w_);
         return tuple;
+    }
+
+    // Vector dot product
+    float dot(const Tuple& other) {
+        return x_*other.x_ + y_*other.y_ + z_*other.z_;
+    }
+
+    float magnitude() {
+        return sqrt(x_*x_+y_*y_+z_*z_+w_*w_);
+    }
+
+    Tuple cross(const Tuple& other) {
+        Tuple tuple(
+            y_ * other.z_ - z_ * other.y_,
+            z_ * other.x_ - x_ * other.z_,
+            x_ * other.y_ - y_ * other.x_,
+            w_
+        );
+        return tuple;
+    }
+
+    void normalize() {
+        float mag = magnitude();
+        x_ /= mag;
+        y_ /= mag;
+        z_ /= mag;
+        w_ /= mag;
     }
 
     float x_;
