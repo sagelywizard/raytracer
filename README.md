@@ -1,3 +1,5 @@
-# raytracer
+# C++ Ray Tracer
 
-This is a personal raytracer project in C++
+This is a personal ray tracer project in C++
+
+Status: in development
