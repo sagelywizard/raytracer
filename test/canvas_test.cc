@@ -76,6 +76,6 @@ TEST(canvasTest, checkPPMBody) {
   std::string ppm_string = ppm_file.str();
   std::string output =
       "255 255 255 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 128 0 0 0 0 0 0 0 0 0 0\n"
-      "255 255 255 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 64";
-  ASSERT_EQ(ppm_string.substr(12, ppm_string.length()), output);
+      "255 255 255 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 64\n";
+  ASSERT_EQ(ppm_string.substr(11, ppm_string.length()), output);
 }
