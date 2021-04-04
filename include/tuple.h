@@ -5,18 +5,18 @@ class Tuple {
  public:
   Tuple(float x, float y, float z, float w) : x_(x), y_(y), z_(z), w_(w) {}
 
-  Tuple operator+(const Tuple& otherTuple);
-  Tuple operator-(const Tuple& otherTuple);
+  Tuple operator+(const Tuple &otherTuple);
+  Tuple operator-(const Tuple &otherTuple);
   Tuple operator-();
   // Hadamard product
-  Tuple operator*(const Tuple& other);
+  Tuple operator*(const Tuple &other);
   // Scalar multiplication
   Tuple operator*(float multiple);
 
   // Vector dot product
-  float dot(const Tuple& other);
+  float dot(const Tuple &other);
   // Vector cross product
-  Tuple cross(const Tuple& other);
+  Tuple cross(const Tuple &other);
 
   float magnitude();
   void normalize();
@@ -39,6 +39,6 @@ class Tuple {
 };
 
 // Need to have this to be able to multiple float*Tuple and Tuple*float
-Tuple operator*(float multiple, const Tuple& tuple);
+Tuple operator*(float multiple, const Tuple &tuple);
 
 #endif

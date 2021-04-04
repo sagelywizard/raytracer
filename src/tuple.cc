@@ -1,4 +1,5 @@
 #include "tuple.h"
+
 #include <cmath>
 
 Tuple Tuple::operator+(const Tuple& other) {
@@ -20,7 +21,8 @@ Tuple Tuple::operator-() {
 
 // Hadamard product
 Tuple Tuple::operator*(const Tuple& other) {
-  Tuple tuple(other.getX() * x_, other.getY() * y_, other.getZ() * z_, other.getW() * w_);
+  Tuple tuple(other.getX() * x_, other.getY() * y_, other.getZ() * z_,
+              other.getW() * w_);
   return tuple;
 }
 
@@ -30,8 +32,8 @@ Tuple Tuple::operator*(float multiple) {
 }
 
 Tuple operator*(float multiple, const Tuple& tuple) {
-  Tuple newTuple(multiple * tuple.getX(), multiple * tuple.getY(), multiple * tuple.getZ(),
-                 multiple * tuple.getW());
+  Tuple newTuple(multiple * tuple.getX(), multiple * tuple.getY(),
+                 multiple * tuple.getZ(), multiple * tuple.getW());
   return newTuple;
 }
 
@@ -43,7 +45,8 @@ float Tuple::dot(const Tuple& other) {
 float Tuple::magnitude() { return sqrt(x_ * x_ + y_ * y_ + z_ * z_ + w_ * w_); }
 
 Tuple Tuple::cross(const Tuple& other) {
-  Tuple tuple(y_ * other.getZ() - z_ * other.getY(), z_ * other.getX() - x_ * other.getZ(),
+  Tuple tuple(y_ * other.getZ() - z_ * other.getY(),
+              z_ * other.getX() - x_ * other.getZ(),
               x_ * other.getY() - y_ * other.getX(), w_);
   return tuple;
 }
@@ -57,7 +60,6 @@ void Tuple::setX(float x) { x_ = x; }
 void Tuple::setY(float y) { y_ = y; }
 void Tuple::setZ(float z) { z_ = z; }
 void Tuple::setW(float w) { w_ = w; }
-
 
 void Tuple::normalize() {
   float mag = magnitude();
