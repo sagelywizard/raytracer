@@ -4,6 +4,7 @@
 class Tuple {
  public:
   Tuple(float x, float y, float z, float w) : x_(x), y_(y), z_(z), w_(w) {}
+  Tuple() : x_(0), y_(0), z_(0), w_(0) {}
 
   Tuple operator+(const Tuple &otherTuple);
   Tuple operator-(const Tuple &otherTuple);
