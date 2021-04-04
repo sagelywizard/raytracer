@@ -2,7 +2,7 @@ language: cpp
 install:
   make get-deps
 script:
-  make build && make test
+  make build VERBOSE=1 && make test
 compiler:
   - clang
   - gcc
