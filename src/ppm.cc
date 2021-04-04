@@ -29,6 +29,7 @@ void writePPMFile(const Canvas& canvas, std::ostream& ppm_file) {
   }
 
   int current_line_length = 0;
+  // TODO(bbastian) simplify this by turning canvas into an iterator
   for (unsigned int y = 0; y < canvas.getHeight(); y++) {
     for (unsigned int x = 0; x < canvas.getWidth(); x++) {
       const Tuple& tuple = canvas.getPixel(x, y);
@@ -38,7 +39,10 @@ void writePPMFile(const Canvas& canvas, std::ostream& ppm_file) {
           pixel_value = lround(255 * ((pixel - minimum) / (maximum - minimum)));
         }
         int pixel_length = std::to_string(pixel_value).length();
-        if (current_line_length + pixel_length + 1 > 70) {
+        if (current_line_length == 0) {
+          ppm_file << pixel_value;
+          current_line_length += (pixel_length + 1);
+        } else if (current_line_length + pixel_length + 1 > 70) {
           ppm_file << "\n" << pixel_value;
           current_line_length = pixel_length;
         } else {
@@ -48,4 +52,6 @@ void writePPMFile(const Canvas& canvas, std::ostream& ppm_file) {
       }
     }
   }
+  // Apparently some ppm viewers require that the last line is a newline
+  ppm_file << "\n";
 }
