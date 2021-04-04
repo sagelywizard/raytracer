@@ -16,3 +16,6 @@ debug-test: build
 get-deps:
 	git submodule update --init --recursive
 
+ppm-example: build
+	./build/example/ppm_example
+	open example.ppm
