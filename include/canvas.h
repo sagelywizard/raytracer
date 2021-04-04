@@ -15,6 +15,8 @@ class Canvas {
 
   void setPixel(const Tuple& color, unsigned int x, unsigned int y);
 
+  const Tuple& getPixel(unsigned int x, unsigned int y) const;
+
   unsigned int getWidth() const;
 
   unsigned int getHeight() const;
