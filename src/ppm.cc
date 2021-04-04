@@ -4,6 +4,7 @@
 #include <fstream>
 
 #include "canvas.h"
+#include "tuple.h"
 
 void writePPMFile(const Canvas& canvas, std::ostream& ppm_file) {
   // Writes PPM file header
@@ -35,7 +36,7 @@ void writePPMFile(const Canvas& canvas, std::ostream& ppm_file) {
       const Tuple& tuple = canvas.getPixel(x, y);
       for (const float& pixel : {tuple.getX(), tuple.getY(), tuple.getZ()}) {
         int pixel_value = 0;
-        if (abs(minimum - maximum) > 1e-4) {
+        if (std::fabs(minimum - maximum) > 1e-4) {
           pixel_value = lround(255 * ((pixel - minimum) / (maximum - minimum)));
         }
         int pixel_length = std::to_string(pixel_value).length();
