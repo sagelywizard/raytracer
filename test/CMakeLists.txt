@@ -5,7 +5,7 @@ file(GLOB_RECURSE TEST_SOURCES LIST_DIRECTORIES false *.h *.cc)
 set(SOURCES ${TEST_SOURCES})
 
 add_executable(${BINARY} ${TEST_SOURCES})
-target_compile_options(${BINARY} PRIVATE -Wall -Wextra -Werror)
+target_compile_options(${BINARY} PRIVATE -Wall -Wextra -Werror -Wpedantic)
 
 add_test(NAME ${BINARY} COMMAND ${BINARY})
 

@@ -23,10 +23,13 @@ TEST(matrixTest, matrixEquality) {
 }
 
 TEST(matrixTest, matrixMultiplication) {
-  Matrix<2, 2> matrix_a((float[2][2]){{1, 2}, {2, 3}});
-  Matrix<2, 2> matrix_b((float[2][2]){{-1, 2}, {-0.4, 0.2}});
+  float mat_array_a[2][2] = {{1, 2}, {2, 3}};
+  Matrix<2, 2> matrix_a(mat_array_a);
+  float mat_array_b[2][2] = {{-1, 2}, {-0.4, 0.2}};
+  Matrix<2, 2> matrix_b(mat_array_b);
   Matrix<2, 2> multiplication = matrix_a * matrix_b;
-  Matrix<2, 2> desired_result((float[2][2]){{-1.8, 2.4}, {-3.2, 4.6}});
+  float mat_array_result[2][2] = {{-1.8, 2.4}, {-3.2, 4.6}};
+  Matrix<2, 2> desired_result(mat_array_result);
   EXPECT_EQ(multiplication, desired_result);
 }
 
