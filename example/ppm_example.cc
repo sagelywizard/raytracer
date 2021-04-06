@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <fstream>
 
 #include "canvas.h"
@@ -11,7 +12,7 @@ int main(void) {
   Canvas canvas(width, height);
   for (int y = 0; y < height; y++) {
     for (int x = 0; x < width; x++) {
-      Tuple pixel(x, y, 255, 0);
+      Tuple pixel(x, y, std::max(width, height), 0);
       canvas.setPixel(pixel, x, y);
     }
   }
