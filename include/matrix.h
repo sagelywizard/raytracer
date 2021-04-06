@@ -16,6 +16,8 @@ class Matrix {
     }
   }
 
+  Matrix<R, C> transpose();
+
   Matrix<R, C> operator*(const Matrix<R, C>& other);
 
   void set(int row, int column, float value);

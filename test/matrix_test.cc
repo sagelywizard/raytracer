@@ -33,8 +33,23 @@ TEST(matrixTest, matrixMultiplication) {
   EXPECT_EQ(multiplication, desired_result);
 }
 
+TEST(matrixTest, matrixTranspose2x2) {
+  float mat_array_a[2][2] = {{1, 2}, {3, 4}};
+  Matrix<2, 2> matrix_a(mat_array_a);
+  float mat_array_b[2][2] = {{1, 3}, {2, 4}};
+  Matrix<2, 2> matrix_b(mat_array_b);
+  EXPECT_EQ(matrix_a.transpose(), matrix_b);
+}
+
+TEST(matrixTest, matrixTranspose3x3) {
+  float mat_array_a[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+  Matrix<3, 3> matrix_a(mat_array_a);
+  float mat_array_b[3][3] = {{1, 4, 7}, {2, 5, 8}, {3, 6, 9}};
+  Matrix<3, 3> matrix_b(mat_array_b);
+  EXPECT_EQ(matrix_a.transpose(), matrix_b);
+}
+
 // TODO(bbastian) test matrix/vector multiplication
 // TODO(bbastian) test multiply by identity
-// TODO(bbastian) test transpose
 // TODO(bbastian) matrix inversion
 // TODO(bbastian) determinant

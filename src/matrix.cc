@@ -6,6 +6,17 @@ void Matrix<R, C>::set(int row, int column, float value) {
 }
 
 template <int R, int C>
+Matrix<R, C> Matrix<R, C>::transpose() {
+  Matrix result;
+  for (int row = 0; row < R; row++) {
+    for (int column = 0; column < C; column++) {
+      result.data_[column * R + row] = data_[row * R + column];
+    }
+  }
+  return result;
+}
+
+template <int R, int C>
 Matrix<R, C> Matrix<R, C>::operator*(const Matrix<R, C>& other) {
   Matrix<R, C> result;
   for (int row = 0; row < R; row++) {
