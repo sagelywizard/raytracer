@@ -15,7 +15,7 @@ build-test:
 test: build-test
 	./build/test/raytracer_test
 
-debug-test: build
+debug-test: build-test
 	lldb ./build/test/raytracer_test
 
 get-deps:
