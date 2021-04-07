@@ -1,5 +1,7 @@
 #include "matrix.h"
 
+#include "tuple.h"
+
 template <int R, int C>
 void Matrix<R, C>::set(int row, int column, float value) {
   data_[row * R + column] = value;
@@ -29,6 +31,18 @@ Matrix<R, C> Matrix<R, C>::operator*(const Matrix<R, C>& other) {
     }
   }
   return result;
+}
+
+template <int R, int C>
+Vector<R> Matrix<R, C>::operator*(const Vector<R>& vector) {
+  Vector<R> output_vector;
+  for (int row = 0; row < R; row++) {
+    output_vector[row] = 0;
+    for (int column = 0; column < C; column++) {
+      output_vector[row] += data_[row * R + column] * vector[column];
+    }
+  }
+  return output_vector;
 }
 
 template <int R, int C>

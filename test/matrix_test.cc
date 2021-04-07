@@ -49,7 +49,16 @@ TEST(matrixTest, matrixTranspose3x3) {
   EXPECT_EQ(matrix_a.transpose(), matrix_b);
 }
 
-// TODO(bbastian) test matrix/vector multiplication
+TEST(matrixTest, matrixVectorMultiplication) {
+  float mat_array_a[3][3] = {{1, -2, 3}, {-4, 5, 6}, {7, 8, -9}};
+  Matrix<3, 3> matrix_a(mat_array_a);
+  float vector_coords[3] = {1, 4, -7};
+  Vector<3> vector(vector_coords);
+  float result_coords[3] = {-28, -26, 102};
+  Vector<3> result(result_coords);
+  EXPECT_EQ(matrix_a * vector, result);
+}
+
 // TODO(bbastian) test multiply by identity
 // TODO(bbastian) matrix inversion
 // TODO(bbastian) determinant

@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#include "tuple.h"
+
 template <int R, int C>
 class Matrix {
  public:
@@ -19,6 +21,7 @@ class Matrix {
   Matrix<R, C> transpose();
 
   Matrix<R, C> operator*(const Matrix<R, C>& other);
+  Vector<R> operator*(const Vector<R>& vector);
 
   void set(int row, int column, float value);
 

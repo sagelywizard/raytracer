@@ -1,6 +1,7 @@
 #include "tuple.h"
 
 #include <cmath>
+#include <iostream>
 
 template <int N>
 float& Tuple<N>::operator[](int index) {
@@ -47,6 +48,16 @@ Tuple<N> Tuple<N>::operator*(const Tuple& other) const {
     tuple[i] *= data_[i];
   }
   return tuple;
+}
+
+template <int N>
+bool Tuple<N>::operator==(const Tuple<N>& other) const {
+  for (int i = 0; i < N; i++) {
+    if (other[i] != data_[i]) {
+      return false;
+    }
+  }
+  return true;
 }
 
 template <int N>
