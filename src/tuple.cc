@@ -2,69 +2,108 @@
 
 #include <cmath>
 
-Tuple Tuple::operator+(const Tuple& other) {
-  Tuple tuple(x_ + other.getX(), y_ + other.getY(), z_ + other.getZ(),
-              w_ + other.getW());
+template <int N>
+float& Tuple<N>::operator[](int index) {
+  return data_[index];
+}
+
+template <int N>
+const float& Tuple<N>::operator[](int index) const {
+  return data_[index];
+}
+
+template <int N>
+Tuple<N> Tuple<N>::operator+(const Tuple& other) const {
+  Tuple tuple = other;
+  for (int i = 0; i < N; i++) {
+    tuple[i] += data_[i];
+  }
   return tuple;
 }
 
-Tuple Tuple::operator-(const Tuple& other) {
-  Tuple tuple(x_ - other.getX(), y_ - other.getY(), z_ - other.getZ(),
-              w_ - other.getW());
+template <int N>
+Tuple<N> Tuple<N>::operator-(const Tuple& other) const {
+  Tuple tuple(data_);
+  for (int i = 0; i < N; i++) {
+    tuple[i] -= other[i];
+  }
   return tuple;
 }
 
-Tuple Tuple::operator-() {
-  Tuple tuple(-x_, -y_, -z_, -w_);
+template <int N>
+Tuple<N> Tuple<N>::operator-() const {
+  Tuple<N> tuple(data_);
+  for (int i = 0; i < N; i++) {
+    tuple.data_[i] *= -1.0f;
+  }
   return tuple;
 }
 
 // Hadamard product
-Tuple Tuple::operator*(const Tuple& other) {
-  Tuple tuple(other.getX() * x_, other.getY() * y_, other.getZ() * z_,
-              other.getW() * w_);
+template <int N>
+Tuple<N> Tuple<N>::operator*(const Tuple& other) const {
+  Tuple<N> tuple = other;
+  for (int i = 0; i < N; i++) {
+    tuple[i] *= data_[i];
+  }
   return tuple;
 }
 
-Tuple Tuple::operator*(float multiple) {
-  Tuple tuple(multiple * x_, multiple * y_, multiple * z_, multiple * w_);
+template <int N>
+Tuple<N> Tuple<N>::operator*(float multiple) const {
+  Tuple tuple(data_);
+  for (int i = 0; i < N; i++) {
+    tuple[i] *= multiple;
+  }
   return tuple;
 }
 
-Tuple operator*(float multiple, const Tuple& tuple) {
-  Tuple newTuple(multiple * tuple.getX(), multiple * tuple.getY(),
-                 multiple * tuple.getZ(), multiple * tuple.getW());
-  return newTuple;
+template <int N>
+Tuple<N> operator*(float multiple, const Tuple<N>& other) {
+  return other * multiple;
 }
 
 // Vector dot product
-float Tuple::dot(const Tuple& other) {
-  return x_ * other.getX() + y_ * other.getY() + z_ * other.getZ();
+template <int N>
+float Tuple<N>::dot(const Tuple<N>& other) const {
+  float dot_product = 0;
+  for (int i = 0; i < N; i++) {
+    dot_product += (other[i] * data_[i]);
+  }
+  return dot_product;
 }
 
-float Tuple::magnitude() { return sqrt(x_ * x_ + y_ * y_ + z_ * z_ + w_ * w_); }
+template <int N>
+float Tuple<N>::magnitude() const {
+  float sum = 0;
+  for (int i = 0; i < N; i++) {
+    sum += data_[i] * data_[i];
+  }
+  return sqrt(sum);
+}
 
-Tuple Tuple::cross(const Tuple& other) {
-  Tuple tuple(y_ * other.getZ() - z_ * other.getY(),
-              z_ * other.getX() - x_ * other.getZ(),
-              x_ * other.getY() - y_ * other.getX(), w_);
+template <int N>
+Tuple<N> Tuple<N>::cross(const Tuple<N>& other) const {
+  Tuple<N> tuple;
+  for (int i = 0; i < N; i++) {
+    tuple[i % N] = data_[(1 + i) % N] * other.data_[(2 + i) % N] -
+                   data_[(2 + i) % N] * other.data_[(1 + i) % N];
+  }
   return tuple;
 }
 
-float Tuple::getX() const { return x_; }
-float Tuple::getY() const { return y_; }
-float Tuple::getZ() const { return z_; }
-float Tuple::getW() const { return w_; }
-
-void Tuple::setX(float x) { x_ = x; }
-void Tuple::setY(float y) { y_ = y; }
-void Tuple::setZ(float z) { z_ = z; }
-void Tuple::setW(float w) { w_ = w; }
-
-void Tuple::normalize() {
+template <int N>
+void Tuple<N>::normalize() {
   float mag = magnitude();
-  x_ /= mag;
-  y_ /= mag;
-  z_ /= mag;
-  w_ /= mag;
+  for (int i = 0; i < N; i++) {
+    data_[i] /= mag;
+  }
 }
+
+template class Tuple<2>;
+template class Tuple<3>;
+template class Tuple<4>;
+
+template Tuple<2> operator*(float multiple, const Tuple<2>& other);
+template Tuple<3> operator*(float multiple, const Tuple<3>& other);
+template Tuple<4> operator*(float multiple, const Tuple<4>& other);

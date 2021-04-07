@@ -18,10 +18,10 @@ TEST(canvasTest, newCanvasIsAllBlack) {
   Canvas canvas(width, height);
   for (unsigned int x = 0; x < width; x++) {
     for (unsigned int y = 0; y < height; y++) {
-      const Tuple pixel = canvas.getPixel(x, y);
-      ASSERT_EQ(pixel.getX(), 0);
-      ASSERT_EQ(pixel.getY(), 0);
-      ASSERT_EQ(pixel.getZ(), 0);
+      const Color pixel = canvas.getPixel(x, y);
+      ASSERT_EQ(pixel[0], 0);
+      ASSERT_EQ(pixel[1], 0);
+      ASSERT_EQ(pixel[2], 0);
     }
   }
 }
@@ -30,19 +30,20 @@ TEST(canvasTest, setPixel) {
   const unsigned int width = 30;
   const unsigned int height = 20;
   Canvas canvas(width, height);
-  Tuple new_pixel(1, 1, 1, 0);
+  float pixel_rgb[3] = {1.0, 1.0, 1.0};
+  Color new_pixel(pixel_rgb);
   canvas.setPixel(new_pixel, 10, 10);
   for (unsigned int x = 0; x < width; x++) {
     for (unsigned int y = 0; y < height; y++) {
-      const Tuple pixel = canvas.getPixel(x, y);
+      const Color pixel = canvas.getPixel(x, y);
       if (x == 10 && y == 10) {
-        ASSERT_EQ(pixel.getX(), 1);
-        ASSERT_EQ(pixel.getY(), 1);
-        ASSERT_EQ(pixel.getZ(), 1);
+        ASSERT_EQ(pixel[0], pixel_rgb[0]);
+        ASSERT_EQ(pixel[1], pixel_rgb[1]);
+        ASSERT_EQ(pixel[2], pixel_rgb[2]);
       } else {
-        ASSERT_EQ(pixel.getX(), 0);
-        ASSERT_EQ(pixel.getY(), 0);
-        ASSERT_EQ(pixel.getZ(), 0);
+        ASSERT_EQ(pixel[0], 0.0f);
+        ASSERT_EQ(pixel[1], 0.0f);
+        ASSERT_EQ(pixel[2], 0.0f);
       }
     }
   }
@@ -63,9 +64,12 @@ TEST(canvasTest, checkPPMBody) {
   const unsigned int height = 4;
   Canvas canvas(width, height);
   std::ostringstream ppm_file;
-  Tuple white_pixel(10, 10, 10, 0);
-  Tuple half_green_pixel(0, 5, 0, 0);
-  Tuple quarter_blue_pixel(0, 0, 2.5, 0);
+  float white_rgb[3] = {10, 10, 10};
+  Color white_pixel(white_rgb);
+  float half_green_rgb[3] = {0, 5, 0};
+  Color half_green_pixel(half_green_rgb);
+  float quarter_blue_rgb[3] = {0, 0, 2.5};
+  Color quarter_blue_pixel(quarter_blue_rgb);
 
   canvas.setPixel(white_pixel, 0, 0);
   canvas.setPixel(half_green_pixel, 1, 1);

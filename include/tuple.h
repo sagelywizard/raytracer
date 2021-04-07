@@ -1,45 +1,48 @@
 #ifndef TUPLE_H_
 #define TUPLE_H_
 
+template <int N>
 class Tuple {
  public:
-  Tuple(float x, float y, float z, float w) : x_(x), y_(y), z_(z), w_(w) {}
-  Tuple() : x_(0), y_(0), z_(0), w_(0) {}
+  Tuple<N>(const float data[N]) {
+    for (int i = 0; i < N; i++) {
+      data_[i] = data[i];
+    }
+  }
+  Tuple<N>() = default;
 
-  Tuple operator+(const Tuple &otherTuple);
-  Tuple operator-(const Tuple &otherTuple);
-  Tuple operator-();
+  Tuple<N> operator+(const Tuple<N> &otherTuple) const;
+  Tuple<N> operator-(const Tuple<N> &otherTuple) const;
+  Tuple<N> operator-() const;
   // Hadamard product
-  Tuple operator*(const Tuple &other);
+  Tuple<N> operator*(const Tuple<N> &other) const;
   // Scalar multiplication
-  Tuple operator*(float multiple);
+  Tuple<N> operator*(float multiple) const;
+  float &operator[](int index);
+  const float &operator[](int index) const;
 
   // Vector dot product
-  float dot(const Tuple &other);
+  float dot(const Tuple<N> &other) const;
   // Vector cross product
-  Tuple cross(const Tuple &other);
+  Tuple<N> cross(const Tuple<N> &other) const;
 
-  float magnitude();
+  float magnitude() const;
   void normalize();
 
-  void setX(float x);
-  void setY(float y);
-  void setZ(float z);
-  void setW(float w);
-
-  float getX() const;
-  float getY() const;
-  float getZ() const;
-  float getW() const;
-
  private:
-  float x_;
-  float y_;
-  float z_;
-  float w_;
+  float data_[N];
 };
 
 // Need to have this to be able to multiple float*Tuple and Tuple*float
-Tuple operator*(float multiple, const Tuple &tuple);
+template <int N>
+Tuple<N> operator*(float multiple, const Tuple<N> &tuple);
+
+using Color = Tuple<3>;
+
+template <int N>
+using Point = Tuple<N>;
+
+template <int N>
+using Vector = Tuple<N>;
 
 #endif

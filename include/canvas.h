@@ -9,13 +9,13 @@ class Canvas {
  public:
   explicit Canvas(unsigned int width, unsigned int height)
       : width_(width), height_(height) {
-    buffer_ = std::make_unique<Tuple[]>(width * height);
+    buffer_ = std::make_unique<Color[]>(width * height);
   };
   Canvas canvas(const Canvas& canvas) = delete;
 
-  void setPixel(const Tuple& color, unsigned int x, unsigned int y);
+  void setPixel(const Color& color, unsigned int x, unsigned int y);
 
-  const Tuple& getPixel(unsigned int x, unsigned int y) const;
+  const Color& getPixel(unsigned int x, unsigned int y) const;
 
   unsigned int getWidth() const;
 
@@ -24,7 +24,7 @@ class Canvas {
  private:
   unsigned int width_;
   unsigned int height_;
-  std::unique_ptr<Tuple[]> buffer_;
+  std::unique_ptr<Color[]> buffer_;
 };
 
 #endif

@@ -3,169 +3,167 @@
 #include "gtest/gtest.h"
 
 TEST(tupleTest, basicPoint) {
-  float x = -0.1, y = 0.0, z = 9990.3;
-  int w = 1;
-  Tuple tuple(x, y, z, w);
-  EXPECT_NEAR(tuple.getX(), x, 1e-6);
-  EXPECT_NEAR(tuple.getY(), y, 1e-6);
-  EXPECT_NEAR(tuple.getZ(), z, 1e-6);
-  EXPECT_NEAR(tuple.getW(), w, 1e-6);
+  float point_coords[3] = {-0.1, 0.0, 9990.3};
+  Point<3> point(point_coords);
+  EXPECT_NEAR(point[0], point_coords[0], 1e-6);
+  EXPECT_NEAR(point[1], point_coords[1], 1e-6);
+  EXPECT_NEAR(point[2], point_coords[2], 1e-6);
 }
 
 TEST(tupleTest, basicVector) {
-  float x = -3.1, y = 0.0, z = 9999.3;
-  int w = 0;
-  Tuple tuple(x, y, z, w);
-  EXPECT_NEAR(tuple.getX(), x, 1e-6);
-  EXPECT_NEAR(tuple.getY(), y, 1e-6);
-  EXPECT_NEAR(tuple.getZ(), z, 1e-6);
-  EXPECT_NEAR(tuple.getW(), w, 1e-6);
+  float coords[3] = {-3.1, 0.0, 9999.3};
+  Vector<3> vector(coords);
+  EXPECT_NEAR(vector[0], coords[0], 1e-6);
+  EXPECT_NEAR(vector[1], coords[1], 1e-6);
+  EXPECT_NEAR(vector[2], coords[2], 1e-6);
 }
 
 TEST(tupleTest, vectorAddition) {
-  Tuple vector1(0.0, 2.0, 4.0, 0);
-  Tuple vector2(-1.0, -2.0, -3.0, 0);
+  float coords1[3] = {0.0, 2.0, 4.0};
+  float coords2[3] = {-1.0, -2.0, -3.0};
+  Vector<3> vector1(coords1);
+  Vector<3> vector2(coords2);
 
-  Tuple sum = vector1 + vector2;
+  Vector<3> sum = vector1 + vector2;
 
-  EXPECT_NEAR(sum.getX(), -1.0, 1e-6);
-  EXPECT_NEAR(sum.getY(), 0.0, 1e-6);
-  EXPECT_NEAR(sum.getZ(), 1.0, 1e-6);
-  EXPECT_NEAR(sum.getW(), 0, 1e-6);
+  EXPECT_NEAR(sum[0], -1.0, 1e-6);
+  EXPECT_NEAR(sum[1], 0.0, 1e-6);
+  EXPECT_NEAR(sum[2], 1.0, 1e-6);
 }
 
 TEST(tupleTest, vectorPointAddition) {
-  Tuple vector(0.0, 2.0, 4.0, 0);
-  Tuple point(-1.0, -2.0, -3.0, 1);
+  float vector_coords[3] = {0.0, 2.0, 4.0};
+  Vector<3> vector(vector_coords);
+  float point_coords[3] = {-1.0, -2.0, -3.0};
+  Point<3> point(point_coords);
 
-  Tuple sum = vector + point;
+  Point<3> sum = vector + point;
 
-  EXPECT_NEAR(sum.getX(), -1.0, 1e-6);
-  EXPECT_NEAR(sum.getY(), 0.0, 1e-6);
-  EXPECT_NEAR(sum.getZ(), 1.0, 1e-6);
-  EXPECT_NEAR(sum.getW(), 1, 1e-6);
+  EXPECT_NEAR(sum[0], -1.0, 1e-6);
+  EXPECT_NEAR(sum[1], 0.0, 1e-6);
+  EXPECT_NEAR(sum[2], 1.0, 1e-6);
 }
 
 TEST(tupleTest, vectorSubtraction) {
-  Tuple vector1(0.0, 2.0, 4.0, 0);
-  Tuple vector2(-1.0, -2.0, -3.0, 0);
+  float vector1_coords[3] = {0.0, 2.0, 4.0};
+  float vector2_coords[3] = {-1.0, -2.0, -3.0};
+  Vector<3> vector1(vector1_coords);
+  Vector<3> vector2(vector2_coords);
 
-  Tuple diff = vector1 - vector2;
+  Vector<3> diff = vector1 - vector2;
 
-  EXPECT_NEAR(diff.getX(), 1.0, 1e-6);
-  EXPECT_NEAR(diff.getY(), 4.0, 1e-6);
-  EXPECT_NEAR(diff.getZ(), 7.0, 1e-6);
-  EXPECT_NEAR(diff.getW(), 0, 1e-6);
+  EXPECT_NEAR(diff[0], 1.0, 1e-6);
+  EXPECT_NEAR(diff[1], 4.0, 1e-6);
+  EXPECT_NEAR(diff[2], 7.0, 1e-6);
 }
 
 TEST(tupleTest, pointVectorSubtraction) {
-  Tuple point(-1.0, -2.0, -3.0, 1);
-  Tuple vector(0.0, 2.0, 4.0, 0);
+  float point_coords[3] = {-1.0, -2.0, -3.0};
+  Point<3> point(point_coords);
+  float vector_coords[3] = {0.0, 2.0, 4.0};
+  Vector<3> vector(vector_coords);
 
-  Tuple diff = point - vector;
+  Point<3> diff = point - vector;
 
-  EXPECT_NEAR(diff.getX(), -1.0, 1e-6);
-  EXPECT_NEAR(diff.getY(), -4.0, 1e-6);
-  EXPECT_NEAR(diff.getZ(), -7.0, 1e-6);
-  EXPECT_NEAR(diff.getW(), 1, 1e-6);
+  EXPECT_NEAR(diff[0], -1.0, 1e-6);
+  EXPECT_NEAR(diff[1], -4.0, 1e-6);
+  EXPECT_NEAR(diff[2], -7.0, 1e-6);
 }
 
 TEST(tupleTest, pointSubtraction) {
-  Tuple point1(0.0, 2.0, 4.0, 0);
-  Tuple point2(-1.0, -2.0, -3.0, 0);
+  float point1_coords[3] = {0.0, 2.0, 4.0};
+  float point2_coords[3] = {-1.0, -2.0, -3.0};
+  Point<3> point1(point1_coords);
+  Point<3> point2(point2_coords);
 
-  Tuple diff = point1 - point2;
+  Vector<3> diff = point1 - point2;
 
-  EXPECT_NEAR(diff.getX(), 1.0, 1e-6);
-  EXPECT_NEAR(diff.getY(), 4.0, 1e-6);
-  EXPECT_NEAR(diff.getZ(), 7.0, 1e-6);
-  EXPECT_NEAR(diff.getW(), 0, 1e-6);
+  EXPECT_NEAR(diff[0], 1.0, 1e-6);
+  EXPECT_NEAR(diff[1], 4.0, 1e-6);
+  EXPECT_NEAR(diff[2], 7.0, 1e-6);
 }
 
 TEST(tupleTest, vectorNegate) {
-  Tuple vector(0.0, 2.0, -4.0, 4.4);
+  float vector_coords[3] = {0.0, 2.0, -4.0};
+  Vector<3> vector(vector_coords);
 
-  Tuple negative = -vector;
+  Vector<3> negative = -vector;
 
-  EXPECT_NEAR(negative.getX(), 0.0, 1e-6);
-  EXPECT_NEAR(negative.getY(), -2.0, 1e-6);
-  EXPECT_NEAR(negative.getZ(), 4.0, 1e-6);
-  EXPECT_NEAR(negative.getW(), -4.4, 1e-6);
+  EXPECT_NEAR(negative[0], 0.0, 1e-6);
+  EXPECT_NEAR(negative[1], -2.0, 1e-6);
+  EXPECT_NEAR(negative[2], 4.0, 1e-6);
 }
 
-TEST(tupleTest, tupleNegate) {
-  Tuple tuple(0.0, 2.0, -4.0, 9.0);
-
-  Tuple negative = -tuple;
-
-  EXPECT_NEAR(negative.getX(), 0.0, 1e-6);
-  EXPECT_NEAR(negative.getY(), -2.0, 1e-6);
-  EXPECT_NEAR(negative.getZ(), 4.0, 1e-6);
-  EXPECT_NEAR(negative.getW(), -9.0, 1e-6);
-}
-
-TEST(tupleTest, tupleScalarMultiplication) {
-  Tuple tuple(-1.0, 2.0, -4.0, 3);
+TEST(tupleTest, vectorScalarMultiplication) {
+  float vector_coords[3] = {-1.0, 2.0, -4.0};
+  Vector<3> vector(vector_coords);
 
   float multiple = 2.0;
-  Tuple negative = multiple * tuple;
+  Vector<3> scaled_vector = multiple * vector;
 
-  EXPECT_NEAR(negative.getX(), -2.0, 1e-6);
-  EXPECT_NEAR(negative.getY(), 4.0, 1e-6);
-  EXPECT_NEAR(negative.getZ(), -8.0, 1e-6);
-  EXPECT_NEAR(negative.getW(), 6, 1e-6);
+  EXPECT_NEAR(scaled_vector[0], -2.0, 1e-6);
+  EXPECT_NEAR(scaled_vector[1], 4.0, 1e-6);
+  EXPECT_NEAR(scaled_vector[2], -8.0, 1e-6);
 }
 
 TEST(tupleTest, vectorDotProduct) {
-  Tuple vector1(0.0, 2.0, 4.0, 0);
-  Tuple vector2(-1.0, -2.0, -3.0, 0);
+  float vector1_coords[3] = {0.0, 2.0, 4.0};
+  float vector2_coords[3] = {-1.0, -2.0, -3.0};
+  Vector<3> vector1(vector1_coords);
+  Vector<3> vector2(vector2_coords);
   EXPECT_NEAR(vector1.dot(vector2), -16.0, 1e-6);
 }
 
 TEST(tupleTest, hadamardProduct) {
-  Tuple vector1(0.0, 2.0, 4.0, 0);
-  Tuple vector2(-1.0, -2.0, -3.0, 0);
-  Tuple result(0.0, -4.0, -12.0, 0);
-  EXPECT_NEAR((vector1 * vector2).getX(), result.getX(), 1e-6);
-  EXPECT_NEAR((vector1 * vector2).getY(), result.getY(), 1e-6);
-  EXPECT_NEAR((vector1 * vector2).getZ(), result.getZ(), 1e-6);
-  EXPECT_NEAR((vector1 * vector2).getW(), result.getW(), 1e-6);
+  float vector1_coords[3] = {0.0, 2.0, 4.0};
+  float vector2_coords[3] = {-1.0, -2.0, -3.0};
+  float result_coords[3] = {0.0, -4.0, -12.0};
+  Vector<3> vector1(vector1_coords);
+  Vector<3> vector2(vector2_coords);
+  Vector<3> result(result_coords);
+  EXPECT_NEAR((vector1 * vector2)[0], result[0], 1e-6);
+  EXPECT_NEAR((vector1 * vector2)[1], result[1], 1e-6);
+  EXPECT_NEAR((vector1 * vector2)[2], result[2], 1e-6);
 }
 
 TEST(tupleTest, magnitudeTest) {
-  Tuple vector1(0.0, 2.0, 4.0, 0);
-  Tuple vector2(-1.0, -2.0, -3.0, 0);
-  Tuple vector3(0.0, -4.0, -12.0, 0);
+  float vector1_coords[3] = {0.0, 2.0, 4.0};
+  float vector2_coords[3] = {-1.0, -2.0, -3.0};
+  float vector3_coords[3] = {0.0, -4.0, -12.0};
+  Vector<3> vector1(vector1_coords);
+  Vector<3> vector2(vector2_coords);
+  Vector<3> vector3(vector3_coords);
   EXPECT_NEAR(vector1.magnitude(), 4.4721, 1e-4);
   EXPECT_NEAR(vector2.magnitude(), 3.7417, 1e-4);
   EXPECT_NEAR(vector3.magnitude(), 12.6491, 1e-4);
 }
 
 TEST(tupleTest, normalizeTest1) {
-  Tuple vector(0.0, 2.0, 4.0, 0);
+  float vector_coords[3] = {0.0, 2.0, 4.0};
+  Vector<3> vector(vector_coords);
   vector.normalize();
   EXPECT_NEAR(vector.magnitude(), 1.0, 1e-3);
-  EXPECT_NEAR(vector.getX(), 0.0, 1e-3);
-  EXPECT_NEAR(vector.getY(), 0.4472, 1e-3);
-  EXPECT_NEAR(vector.getZ(), 0.8944, 1e-3);
-  EXPECT_NEAR(vector.getW(), 0.0, 1e-3);
+  EXPECT_NEAR(vector[0], 0.0, 1e-3);
+  EXPECT_NEAR(vector[1], 0.4472, 1e-3);
+  EXPECT_NEAR(vector[2], 0.8944, 1e-3);
 }
 
 TEST(tupleTest, normalizeTest2) {
-  Tuple vector(0.0, 1.0, 0.0, 0);
+  float vector_coords[3] = {0.0, 1.0, 0.0};
+  Vector<3> vector(vector_coords);
   vector.normalize();
   EXPECT_NEAR(vector.magnitude(), 1.0, 1e-3);
-  EXPECT_NEAR(vector.getX(), 0.0, 1e-3);
-  EXPECT_NEAR(vector.getY(), 1.0, 1e-3);
-  EXPECT_NEAR(vector.getZ(), 0.0, 1e-3);
-  EXPECT_NEAR(vector.getW(), 0.0, 1e-3);
+  EXPECT_NEAR(vector[0], 0.0, 1e-3);
+  EXPECT_NEAR(vector[1], 1.0, 1e-3);
+  EXPECT_NEAR(vector[2], 0.0, 1e-3);
 }
 
 TEST(tupleTest, crossProductTest) {
-  Tuple vector1(1.0, 2.0, 3.0, 0);
-  Tuple vector2(4.0, 5.0, 6.0, 0);
-  EXPECT_NEAR(vector1.cross(vector2).getX(), -3.0, 1e-6);
-  EXPECT_NEAR(vector1.cross(vector2).getY(), 6.0, 1e-6);
-  EXPECT_NEAR(vector1.cross(vector2).getZ(), -3.0, 1e-6);
-  EXPECT_NEAR(vector1.cross(vector2).getW(), 0.0, 1e-6);
+  float vector1_coords[3] = {1.0, 2.0, 3.0};
+  float vector2_coords[3] = {4.0, 5.0, 6.0};
+  Vector<3> vector1(vector1_coords);
+  Vector<3> vector2(vector2_coords);
+  EXPECT_NEAR(vector1.cross(vector2)[0], -3.0, 1e-6);
+  EXPECT_NEAR(vector1.cross(vector2)[1], 6.0, 1e-6);
+  EXPECT_NEAR(vector1.cross(vector2)[2], -3.0, 1e-6);
 }
