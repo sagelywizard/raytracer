@@ -59,6 +59,15 @@ TEST(matrixTest, matrixVectorMultiplication) {
   EXPECT_EQ(matrix_a * vector, result);
 }
 
-// TODO(bbastian) test multiply by identity
+TEST(matrixTest, matrixMultiplyByIdentity) {
+  float mat_array_a[3][3] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+  Matrix<3, 3> matrix_a(mat_array_a);
+  float vector_coords[3] = {1, 4, -7};
+  Vector<3> vector(vector_coords);
+  float result_coords[3] = {1, 4, -7};
+  Vector<3> result(result_coords);
+  EXPECT_EQ(matrix_a * vector, result);
+}
+
 // TODO(bbastian) matrix inversion
 // TODO(bbastian) determinant
