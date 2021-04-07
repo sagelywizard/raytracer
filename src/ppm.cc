@@ -32,8 +32,9 @@ void writePPMFile(const Canvas& canvas, std::ostream& ppm_file) {
   // TODO(bbastian) simplify this by turning canvas into an iterator
   for (unsigned int y = 0; y < canvas.getHeight(); y++) {
     for (unsigned int x = 0; x < canvas.getWidth(); x++) {
-      const Color& pixel = canvas.getPixel(x, y);
-      for (const float& pixel : {pixel[0], pixel[1], pixel[2]}) {
+      const Color& pixel_color = canvas.getPixel(x, y);
+      for (const float& pixel :
+           {pixel_color[0], pixel_color[1], pixel_color[2]}) {
         int pixel_value = 0;
         if (std::fabs(minimum - maximum) > 1e-4) {
           pixel_value = lround(255 * ((pixel - minimum) / (maximum - minimum)));
