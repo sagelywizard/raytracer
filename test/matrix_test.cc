@@ -69,5 +69,10 @@ TEST(matrixTest, matrixMultiplyByIdentity) {
   EXPECT_EQ(matrix_a * vector, result);
 }
 
+TEST(matrixTest, determinant2x2) {
+  float mat_array[2][2] = {{1, 2}, {-2, 3}};
+  Matrix<2, 2> matrix(mat_array);
+  EXPECT_EQ(matrix.determinant(), 7.0f);
+}
+
 // TODO(bbastian) matrix inversion
-// TODO(bbastian) determinant

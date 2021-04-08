@@ -19,6 +19,7 @@ class Matrix {
   }
 
   Matrix<R, C> transpose();
+  float determinant();
 
   Matrix<R, C> operator*(const Matrix<R, C>& other);
   Vector<R> operator*(const Vector<R>& vector);

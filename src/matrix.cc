@@ -19,6 +19,14 @@ Matrix<R, C> Matrix<R, C>::transpose() {
 }
 
 template <int R, int C>
+float Matrix<R, C>::determinant() {
+  if (R == 2) {
+    return data_[0] * data_[3] - data_[1] * data_[2];
+  }
+  return 0;
+}
+
+template <int R, int C>
 Matrix<R, C> Matrix<R, C>::operator*(const Matrix<R, C>& other) {
   Matrix<R, C> result;
   for (int row = 0; row < R; row++) {
