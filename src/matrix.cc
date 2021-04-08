@@ -18,12 +18,34 @@ Matrix<R, C> Matrix<R, C>::transpose() {
   return result;
 }
 
-template <int R, int C>
-float Matrix<R, C>::determinant() {
-  if (R == 2) {
-    return data_[0] * data_[3] - data_[1] * data_[2];
-  }
-  return 0;
+template <>
+float Matrix<2, 2>::determinant() {
+  return data_[0] * data_[3] - data_[1] * data_[2];
+}
+
+template <>
+float Matrix<3, 3>::determinant() {
+  return data_[0] * (data_[4] * data_[8] - data_[5] * data_[7]) -
+         data_[1] * (data_[3] * data_[8] - data_[5] * data_[6]) +
+         data_[2] * (data_[3] * data_[7] - data_[4] * data_[6]);
+}
+
+template <>
+float Matrix<4, 4>::determinant() {
+  return data_[0] *
+             (data_[5] * (data_[10] * data_[15] - data_[11] * data_[14]) -
+              data_[6] * (data_[9] * data_[15] - data_[11] * data_[13]) +
+              data_[7] * (data_[9] * data_[14] - data_[10] * data_[13])) -
+         data_[1] *
+             (data_[4] * (data_[10] * data_[15] - data_[11] * data_[14]) -
+              data_[6] * (data_[8] * data_[15] - data_[11] * data_[12]) +
+              data_[7] * (data_[8] * data_[14] - data_[10] * data_[12])) +
+         data_[2] * (data_[4] * (data_[9] * data_[15] - data_[11] * data_[13]) -
+                     data_[5] * (data_[8] * data_[15] - data_[11] * data_[12]) +
+                     data_[7] * (data_[8] * data_[13] - data_[9] * data_[12])) -
+         data_[3] * (data_[4] * (data_[9] * data_[14] - data_[10] * data_[13]) -
+                     data_[5] * (data_[8] * data_[14] - data_[10] * data_[12]) +
+                     data_[6] * (data_[8] * data_[13] - data_[9] * data_[12]));
 }
 
 template <int R, int C>

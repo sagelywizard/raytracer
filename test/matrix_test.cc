@@ -75,4 +75,17 @@ TEST(matrixTest, determinant2x2) {
   EXPECT_EQ(matrix.determinant(), 7.0f);
 }
 
+TEST(matrixTest, determinant3x3) {
+  float mat_array[3][3] = {{1, 2, 3}, {-2, 3, -2}, {0, 1, 2}};
+  Matrix<3, 3> matrix(mat_array);
+  EXPECT_EQ(matrix.determinant(), 10.0f);
+}
+
+TEST(matrixTest, determinant4x4) {
+  float mat_array[4][4] = {
+      {1, 2, 3, -2}, {-2, 3, -2, 1}, {3, 1, -2, 3}, {0, 1, 2, -3}};
+  Matrix<4, 4> matrix(mat_array);
+  EXPECT_EQ(matrix.determinant(), 78.0f);
+}
+
 // TODO(bbastian) matrix inversion
