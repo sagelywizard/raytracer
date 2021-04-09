@@ -48,6 +48,29 @@ float Matrix<4, 4>::determinant() {
                      data_[6] * (data_[8] * data_[13] - data_[9] * data_[12]));
 }
 
+template <>
+float Matrix<2, 2>::cofactor(int row, int column) {
+  return (row == column ? 1 : -1) *
+         data_[2 * ((row + 1) % 2) + ((column + 1) % 2)];
+}
+
+template <int R, int C>
+float Matrix<R, C>::cofactor(int row, int column) {
+  Matrix<R - 1, C - 1> submatrix;
+  int submat_row = 0;
+  for (int i = 0; i < R; i++) {
+    if (i == row) continue;
+    int submat_col = 0;
+    for (int j = 0; j < C; j++) {
+      if (j == column) continue;
+      submatrix.set(submat_row, submat_col, data_[i * R + j]);
+      submat_col += 1;
+    }
+    submat_row += 1;
+  }
+  return ((row * R + column) % 2 == 0 ? 1 : -1) * submatrix.determinant();
+}
+
 template <int R, int C>
 Matrix<R, C> Matrix<R, C>::operator*(const Matrix<R, C>& other) {
   Matrix<R, C> result;
