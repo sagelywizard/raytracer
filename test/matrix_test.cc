@@ -1,7 +1,5 @@
 #include "matrix.h"
 
-#include <optional>
-
 #include "gtest/gtest.h"
 
 TEST(matrixTest, matrixEquality) {
