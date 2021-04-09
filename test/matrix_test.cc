@@ -1,5 +1,7 @@
 #include "matrix.h"
 
+#include <optional>
+
 #include "gtest/gtest.h"
 
 TEST(matrixTest, matrixEquality) {
@@ -88,4 +90,22 @@ TEST(matrixTest, determinant4x4) {
   EXPECT_EQ(matrix.determinant(), 78.0f);
 }
 
-// TODO(bbastian) matrix inversion
+TEST(matrixTest, cofactor2x2) {
+  float mat_array[2][2] = {{1, -2}, {-2, 3}};
+  Matrix<2, 2> matrix(mat_array);
+  EXPECT_EQ(matrix.cofactor(0, 0), 3);
+  EXPECT_EQ(matrix.cofactor(0, 1), 2);
+  EXPECT_EQ(matrix.cofactor(1, 0), 2);
+  EXPECT_EQ(matrix.cofactor(1, 1), 1);
+}
+
+TEST(matrixTest, cofactor3x3) {
+  float mat_array[3][3] = {{1, -2, 3}, {-2, 3, 0}, {-1, -2, 0}};
+  Matrix<3, 3> matrix(mat_array);
+  float cofactor_mat[3][3] = {{0, 0, 7}, {-6, 3, 4}, {-9, -6, -1}};
+  for (int row = 0; row < 3; row++) {
+    for (int column = 0; column < 3; column++) {
+      EXPECT_EQ(matrix.cofactor(row, column), cofactor_mat[row][column]);
+    }
+  }
+}
