@@ -22,7 +22,7 @@ TEST(matrixTest, matrixEquality) {
   EXPECT_EQ(matrix_c, matrix_c);
 }
 
-TEST(matrixTest, matrixMultiplication) {
+TEST(matrixTest, matrixMultiplication2x2) {
   float mat_array_a[2][2] = {{1, 2}, {2, 3}};
   Matrix<2, 2> matrix_a(mat_array_a);
   float mat_array_b[2][2] = {{-1, 2}, {-0.4, 0.2}};
@@ -31,6 +31,32 @@ TEST(matrixTest, matrixMultiplication) {
   float mat_array_result[2][2] = {{-1.8, 2.4}, {-3.2, 4.6}};
   Matrix<2, 2> desired_result(mat_array_result);
   EXPECT_EQ(multiplication, desired_result);
+}
+
+TEST(matrixTest, matrixMultiplication3x3) {
+  float mat_array_a[3][3] = {{1, 2, 3}, {2, 3, 4}, {-1, 0, -1}};
+  Matrix<3, 3> matrix_a(mat_array_a);
+  float mat_array_b[3][3] = {{-1, 2, -0.5}, {-0.4, 0.2, -0.1}, {0.1, 0.2, 0.3}};
+  Matrix<3, 3> matrix_b(mat_array_b);
+  Matrix<3, 3> multiplication = matrix_a * matrix_b;
+  float mat_array_result[3][3] = {
+      {-1.5, 3., 0.2}, {-2.8, 5.4, -0.1}, {0.9, -2.2, 0.2}};
+  Matrix<3, 3> desired_result(mat_array_result);
+  EXPECT_TRUE(multiplication.approx_eq(desired_result, 1e-6));
+}
+
+TEST(matrixTest, matrixApproxEq) {
+  float mat_array_a[3][3] = {
+      {0.9999, 2.0001, -0.0001}, {-1.0001, -0.500001, 0.142857}, {-1, 0, -1}};
+  Matrix<3, 3> matrix_a(mat_array_a);
+  float mat_array_b[3][3] = {{1.0001, 1.9999, 0.0001},
+                             {-0.9999, -0.499999, 0.1428571},
+                             {-0.99999, -0, -1.00001}};
+  Matrix<3, 3> matrix_b(mat_array_b);
+  EXPECT_TRUE(matrix_a.approx_eq(matrix_b, 1e-3));
+  EXPECT_TRUE(matrix_b.approx_eq(matrix_a, 1e-3));
+  EXPECT_FALSE(matrix_a.approx_eq(matrix_b, 1e-8));
+  EXPECT_FALSE(matrix_b.approx_eq(matrix_a, 1e-8));
 }
 
 TEST(matrixTest, matrixTranspose2x2) {
