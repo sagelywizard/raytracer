@@ -25,6 +25,8 @@ class Matrix {
   Matrix<R, C> operator*(const Matrix<R, C>& other);
   Vector<R> operator*(const Vector<R>& vector);
 
+  bool approx_eq(const Matrix<R, C>& other, float max_difference);
+
   void set(int row, int column, float value);
 
   float data_[R * C];

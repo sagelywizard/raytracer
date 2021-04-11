@@ -116,6 +116,19 @@ bool operator!=(const Matrix<R, C>& matrix_a, const Matrix<R, C>& matrix_b) {
   return !(matrix_a == matrix_b);
 }
 
+template <int R, int C>
+bool Matrix<R, C>::approx_eq(const Matrix<R, C>& other, float max_difference) {
+  for (int row = 0; row < R; row++) {
+    for (int column = 0; column < C; column++) {
+      if (fabs(data_[row * R + column] - other.data_[row * R + column]) >
+          max_difference) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 template bool operator==<2, 2>(const Matrix<2, 2>&, const Matrix<2, 2>&);
 template bool operator==<3, 3>(const Matrix<3, 3>&, const Matrix<3, 3>&);
 template bool operator==<4, 4>(const Matrix<4, 4>&, const Matrix<4, 4>&);
