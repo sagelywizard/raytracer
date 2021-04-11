@@ -1,5 +1,7 @@
 #include "matrix.h"
 
+#include <cmath>
+
 #include "tuple.h"
 
 template <int R, int C>
