@@ -75,6 +75,16 @@ TEST(matrixTest, matrixTranspose3x3) {
   EXPECT_EQ(matrix_a.transpose(), matrix_b);
 }
 
+TEST(matrixTest, matrixTranspose4x4) {
+  float mat_array_a[4][4] = {
+      {1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
+  Matrix<4, 4> matrix_a(mat_array_a);
+  float mat_array_b[4][4] = {
+      {1, 5, 9, 13}, {2, 6, 10, 14}, {3, 7, 11, 15}, {4, 8, 12, 16}};
+  Matrix<4, 4> matrix_b(mat_array_b);
+  EXPECT_EQ(matrix_a.transpose(), matrix_b);
+}
+
 TEST(matrixTest, matrixVectorMultiplication) {
   float mat_array_a[3][3] = {{1, -2, 3}, {-4, 5, 6}, {7, 8, -9}};
   Matrix<3, 3> matrix_a(mat_array_a);
